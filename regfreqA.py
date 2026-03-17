@@ -32,10 +32,13 @@ def regfreqA(X, k):
     ATy = A.T @ y
 
     P, L, U = lu(ATA)
-    z = solve(L, P @ ATy)
+    z = solve(L, P.T @ ATy)
     beta = solve(U, z)
 
     res = norm(A @ beta - y)
     print(f"Norme du residu ||F(beta)|| = ||A*beta - y|| = {res}")
 
     return beta
+
+    cond = np.linalg.cond(A.T @ A)
+    print("cond(A^T A) =", cond)

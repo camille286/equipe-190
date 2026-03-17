@@ -1,5 +1,5 @@
 import numpy as np
-from numpy.linalg import solve, norm
+from numpy.linalg import cond, solve, norm
 
 def regfreqB(X, k):
     '''
@@ -34,3 +34,8 @@ def regfreqB(X, k):
     print(f"Norme du residu ||F(beta)|| = ||A*beta - y|| = {res}")
 
     return beta
+
+#k
+    Q, R = np.linalg.qr(A)
+    cond = np.linalg.cond(R)
+    print("cond(R) =", cond)

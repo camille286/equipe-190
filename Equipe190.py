@@ -11,7 +11,7 @@ X = np.loadtxt("points.txt")
 plt.scatter(X[:,0], X[:,1], s=3, c='plum')
 plt.xlabel("x")
 plt.ylabel("f(x)")
-plt.title("Nuage de points")
+plt.title("Figure 1: Nuage de points")
 
 plt.grid()
 plt.show()
@@ -30,7 +30,7 @@ plt.plot(x, yA, label="reglinA")
 plt.plot(x, yB, label="reglinB")
 plt.xlabel("x")
 plt.ylabel("y")
-plt.title("Régression linéaire")
+plt.title("Figure 2: Régression linéaire")
 plt.legend()
 plt.grid()
 plt.show()
@@ -73,7 +73,7 @@ plt.plot(x, y, label="Régression non linéaire", linewidth=2, c='red')
 
 plt.xlabel("x")
 plt.ylabel("y")
-plt.title("Régression non linéaire par Newton")
+plt.title("Figure 3: Régression non linéaire par Newton")
 plt.legend()
 plt.grid()
 plt.show()
@@ -91,3 +91,63 @@ print(betaB5)
 
 print("shape A5 =", betaA5.shape)
 print("shape B5 =", betaB5.shape)
+
+X = np.loadtxt("points.txt")
+x_data = X[:, 0]
+y_data = X[:, 1]
+
+betaA5 = regfreqA(X, 5)
+betaB5 = regfreqB(X, 5)
+betaA15 = regfreqA(X, 15)
+betaB15 = regfreqB(X, 15)
+
+def f_freq(x, beta, k):
+    y = beta[0, 0] * np.ones_like(x)
+
+    for j in range(1, k):
+        y += beta[j, 0] * np.cos(j * x)
+
+    for j in range(1, k):
+        y += beta[k - 1 + j, 0] * np.sin(j * x)
+
+    return y
+
+x = np.linspace(1, 6, 400)
+
+yA5 = f_freq(x, betaA5, 5)
+yB5 = f_freq(x, betaB5, 5)
+yA15 = f_freq(x, betaA15, 15)
+yB15 = f_freq(x, betaB15, 15)
+
+plt.figure()
+plt.scatter(x_data, y_data, s=5, label="Données", c='plum')
+plt.plot(x, yA5, label="Régression de Fourier A (k=5)")
+plt.plot(x, yB5, label="Régression de Fourier B (k=5)")
+plt.plot(x, yA15, label="Régression de Fourier A (k=15)")
+plt.plot(x, yB15, label="Régression de Fourier B (k=15)")
+
+plt.xlabel("x")
+plt.ylabel("f(x)")
+plt.title("Figure 4: Régression de Fourier")
+plt.legend()
+plt.grid()
+plt.show()
+
+
+# ===== k) Temps de calcul =====
+
+def temps_moyen(f, X, k):
+    t0 = time()
+    for _ in range(1000):
+        f(X, k)
+    return (time() - t0) / 1000
+
+tA5 = temps_moyen(regfreqA, X, 5)
+tB5 = temps_moyen(regfreqB, X, 5)
+tA15 = temps_moyen(regfreqA, X, 15)
+tB15 = temps_moyen(regfreqB, X, 15)
+
+print("Temps moyen A k=5 :", tA5)
+print("Temps moyen B k=5 :", tB5)
+print("Temps moyen A k=15 :", tA15)
+print("Temps moyen B k=15 :", tB15)
