@@ -32,3 +32,46 @@ plt.title("Régression linéaire")
 plt.legend()
 plt.grid()
 plt.show()
+
+# Charger les données
+X = np.loadtxt("points.txt")
+
+# Extraire x et y
+x_data = X[:, 0]
+y_data = X[:, 1]
+
+# Définir F(beta) : doit retourner un vecteur colonne (1000,1)
+F = lambda beta: (
+    beta[0] + beta[1] * np.sqrt(x_data - beta[2]) - y_data
+).reshape(-1, 1)
+
+# Définir J(beta) : doit retourner une matrice (1000,3)
+J = lambda beta: np.column_stack((
+    np.ones(len(x_data)),
+    np.sqrt(x_data - beta[2]),
+    -beta[1] / (2 * np.sqrt(x_data - beta[2]))
+))
+
+# Point de départ
+beta0 = np.array([[1.0], [1.0], [1.0]])
+
+# Appel de Newton
+beta = newton(beta0, F, J, 1e-7, 20)
+
+print("beta =")
+print(beta)
+
+# Tracé de la courbe de régression
+x = np.linspace(1, 6, 300)
+y = beta[0,0] + beta[1,0] * np.sqrt(x - beta[2,0])
+
+plt.figure()
+plt.scatter(x_data, y_data, s=5, label="Points", c='plum')
+plt.plot(x, y, label="Régression non linéaire", linewidth=2, c='red')
+
+plt.xlabel("x")
+plt.ylabel("y")
+plt.title("Régression non linéaire par Newton")
+plt.legend()
+plt.grid()
+plt.show()
