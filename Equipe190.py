@@ -6,3 +6,6 @@ from reglinB import reglinB
 from newton import newton
 from regfreqA import regfreqA
 from regfreqB import regfreqB
+
+X = np.loadtxt("points.txt")
+plt.scatter(X[:,0],X[:,1],s=3)
