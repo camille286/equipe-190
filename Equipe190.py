@@ -4,6 +4,8 @@ from time import time as time
 from reglinA import reglinA
 from reglinB import reglinB
 from newton import newton
+from regfreqA import regfreqA
+from regfreqB import regfreqB
 
 X = np.loadtxt("points.txt")
 plt.scatter(X[:,0], X[:,1], s=3, c='plum')
@@ -75,3 +77,17 @@ plt.title("Régression non linéaire par Newton")
 plt.legend()
 plt.grid()
 plt.show()
+
+X = np.loadtxt("points.txt")
+
+betaA5 = regfreqA(X, 5)
+betaB5 = regfreqB(X, 5)
+
+print("betaA5 =")
+print(betaA5)
+
+print("betaB5 =")
+print(betaB5)
+
+print("shape A5 =", betaA5.shape)
+print("shape B5 =", betaB5.shape)
