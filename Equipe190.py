@@ -18,7 +18,7 @@ plt.title("Figure 1: Nuage de points")
 plt.grid()
 plt.show()
 
-# ===== b) Régression linéaire méthode A et B =====
+# ===== c) Régression linéaire méthode A et B =====
 
 X = np.loadtxt("points.txt")
 
@@ -42,7 +42,7 @@ plt.legend()
 plt.grid()
 plt.show()
 
-# ===== c) Régression non linéaire par Newton =====
+# ===== f) Régression non linéaire par Newton =====
 
 X = np.loadtxt("points.txt")
 
