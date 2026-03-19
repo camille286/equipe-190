@@ -83,7 +83,7 @@ plt.legend()
 plt.grid()
 plt.show()
 
-# ===== d) Régression de Fourier =====
+# ===== j) Régression de Fourier =====
 
 X = np.loadtxt("points.txt")
 
