@@ -18,12 +18,15 @@ plt.show()
 
 X = np.loadtxt("points.txt")
 
-betaA = reglinA(X)
-betaB = reglinB(X)
+beta1 = reglinA(X)
+beta2 = reglinB(X)
+
+print("Méthode A =", beta1)
+print("Méthode B =", beta2)
 
 x = np.linspace(1, 6)
-yA = betaA[0] + betaA[1]*x
-yB = betaB[0] + betaB[1]*x
+yA = beta1[0] + beta1[1]*x
+yB = beta2[0] + beta2[1]*x
 
 plt.scatter(X[:,0], X[:,1], s=3, label="Points", c='plum')
 plt.plot(x, yA, label="reglinA")
@@ -80,26 +83,26 @@ plt.show()
 
 X = np.loadtxt("points.txt")
 
-betaA5 = regfreqA(X, 5)
-betaB5 = regfreqB(X, 5)
+beta1_5 = regfreqA(X, 5)
+beta2_5 = regfreqB(X, 5)
 
-print("betaA5 =")
-print(betaA5)
+print("beta15 =")
+print(beta1_5)
 
-print("betaB5 =")
-print(betaB5)
+print("beta2_5 =")
+print(beta2_5)
 
-print("shape A5 =", betaA5.shape)
-print("shape B5 =", betaB5.shape)
+print("shape A5 =", beta1_5.shape)
+print("shape B5 =", beta2_5.shape)
 
 X = np.loadtxt("points.txt")
 x_data = X[:, 0]
 y_data = X[:, 1]
 
-betaA5 = regfreqA(X, 5)
-betaB5 = regfreqB(X, 5)
-betaA15 = regfreqA(X, 15)
-betaB15 = regfreqB(X, 15)
+beta1_5 = regfreqA(X, 5)
+beta2_5 = regfreqB(X, 5)
+beta1_15 = regfreqA(X, 15)
+beta2_15 = regfreqB(X, 15)
 
 def f_freq(x, beta, k):
     y = beta[0, 0] * np.ones_like(x)
@@ -114,10 +117,10 @@ def f_freq(x, beta, k):
 
 x = np.linspace(1, 6, 400)
 
-yA5 = f_freq(x, betaA5, 5)
-yB5 = f_freq(x, betaB5, 5)
-yA15 = f_freq(x, betaA15, 15)
-yB15 = f_freq(x, betaB15, 15)
+yA5 = f_freq(x, beta1_5, 5)
+yB5 = f_freq(x, beta2_5, 5)
+yA15 = f_freq(x, beta1_15, 15)
+yB15 = f_freq(x, beta2_15, 15)
 
 plt.figure()
 plt.scatter(x_data, y_data, s=5, label="Données", c='plum')
