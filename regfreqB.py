@@ -1,7 +1,7 @@
 import numpy as np
-from numpy.linalg import cond, solve, norm
+from numpy.linalg import solve, norm
 
-def regfreqB(X, k):
+def regfreqB(X, k, afficher=True):
     '''
     Args:
         X : matrice n x 2 contenant les points (xi, yi)
@@ -31,11 +31,10 @@ def regfreqB(X, k):
     beta = solve(R, Q.T @ y)
 
     res = norm(A @ beta - y)
-    print(f"Norme du residu ||F(beta)|| = ||A*beta - y|| = {res}")
+    cond_R = np.linalg.cond(R)
 
+    if afficher:
+        print(f"Norme du residu ||F(beta)|| = ||A*beta - y|| = {res}")
+        print(f"cond(R) = {cond_R}")
+    
     return beta
-
-#k
-    Q, R = np.linalg.qr(A)
-    cond = np.linalg.cond(R)
-    print("cond(R) =", cond)

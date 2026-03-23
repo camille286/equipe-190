@@ -86,27 +86,18 @@ plt.show()
 # ===== j) Régression de Fourier =====
 
 X = np.loadtxt("points.txt")
-
-betaA5 = regfreqA(X, 5)
-betaB5 = regfreqB(X, 5)
-
-print("betaA5 =")
-print(betaA5)
-
-print("betaB5 =")
-print(betaB5)
-
-print("shape A5 =", betaA5.shape)
-print("shape B5 =", betaB5.shape)
-
-X = np.loadtxt("points.txt")
 x_data = X[:, 0]
 y_data = X[:, 1]
 
-betaA5 = regfreqA(X, 5)
-betaB5 = regfreqB(X, 5)
-betaA15 = regfreqA(X, 15)
-betaB15 = regfreqB(X, 15)
+betaA5 = regfreqA(X, 5, afficher=True)
+betaB5 = regfreqB(X, 5, afficher=True)
+betaA15 = regfreqA(X, 15, afficher=True)
+betaB15 = regfreqB(X, 15, afficher=True)
+
+print("shape A5 =", betaA5.shape)
+print("shape B5 =", betaB5.shape)
+print("shape A15 =", betaA15.shape)
+print("shape B15 =", betaB15.shape)
 
 def f_freq(x, beta, k):
     y = beta[0, 0] * np.ones_like(x)
@@ -146,7 +137,7 @@ plt.show()
 def temps_moyen(f, X, k):
     t0 = time()
     for _ in range(1000):
-        f(X, k)
+        f(X, k, afficher=False)
     return (time() - t0) / 1000
 
 tA5 = temps_moyen(regfreqA, X, 5)
